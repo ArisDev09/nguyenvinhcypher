@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Vinh Cypher - Bảo mật toàn diện</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .made-with-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: rgba(0,0,0,0.15);
+            border-top: 1px solid rgba(0,212,255,0.06);
+            border-bottom: 1px solid rgba(0,212,255,0.06);
+            padding: 0.8rem 0;
+            margin: 0.8rem 0;
+        }
+        .made-with-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.03), transparent);
+            animation: madeWithScan 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes madeWithScan {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+        .made-with-track {
+            display: flex;
+            white-space: nowrap;
+            animation: madeWithMove 40s linear infinite;
+            width: max-content;
+            align-items: center;
+            gap: 1.8rem;
+            padding: 0 2rem;
+        }
+        .made-with-track .tech-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #8888aa;
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 0.2rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .made-with-track .tech-item:hover {
+            color: #00d4ff;
+            background: rgba(0,212,255,0.05);
+            border-color: rgba(0,212,255,0.1);
+            transform: scale(1.05);
+        }
+        .made-with-track .tech-item img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0.6) saturate(0.5);
+            transition: 0.3s;
+        }
+        .made-with-track .tech-item:hover img {
+            filter: brightness(1) saturate(1);
+        }
+        .made-with-track .tech-item .icon-svg {
+            font-size: 1.8rem;
+            color: #8888aa;
+            transition: 0.3s;
+        }
+        .made-with-track .tech-item:hover .icon-svg {
+            color: #00d4ff;
+        }
+        .made-with-track .sep-dot {
+            color: #333355;
+            font-size: 0.6rem;
+        }
+        @keyframes madeWithMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .made-with-title {
+            text-align: center;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+            color: #555577;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .made-with-title i {
+            color: #00d4ff;
+            margin-right: 0.5rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .footer-links a {
+            color: #8888aa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            color: #00d4ff;
+        }
+        .footer-links .sep {
+            color: #444466;
+        }
+        .logo-groq {
+            filter: brightness(0.7) saturate(0.3) hue-rotate(200deg) !important;
+        }
+        .logo-opencv {
+            filter: brightness(0.7) saturate(0.5) !important;
+        }
+        .made-with-track .tech-item:hover .logo-groq {
+            filter: brightness(1) saturate(1) hue-rotate(0deg) !important;
+        }
+        .made-with-track .tech-item:hover .logo-opencv {
+            filter: brightness(1) saturate(1) !important;
+        }
+        footer {
+            padding: 1.5rem 0 1.5rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            color: #666688;
+            font-size: 0.85rem;
+            background: #000002;
+            position: relative;
+            z-index: 2;
+            font-family: 'Exo 2', sans-serif;
+            width: 100%;
+        }
+        .footer-content {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .footer-content .footer-bottom {
+            padding: 0 2.5rem;
+        }
+        .news-grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .news-card-4col {
+            background: rgba(6, 6, 20, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.06);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+        }
+        .news-card-4col:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
+        }
+        .news-card-4col .news-image {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: rgba(0, 212, 255, 0.02);
+        }
+        .news-card-4col .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .news-card-4col:hover .news-image img {
+            transform: scale(1.05);
+        }
+        .news-card-4col .news-body {
+            padding: 1.2rem;
+        }
+        .news-card-4col .news-body .news-badge {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.5rem;
+            font-weight: 600;
+            padding: 0.1rem 0.7rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 0.3rem;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .news-card-4col .news-body .news-badge.gov {
+            background: rgba(0, 212, 255, 0.08);
+            color: #00d4ff;
+            border-color: rgba(0, 212, 255, 0.08);
+        }
+        .news-card-4col .news-body .news-badge.tech {
+            background: rgba(127, 57, 251, 0.12);
+            color: #7f39fb;
+            border-color: rgba(127, 57, 251, 0.1);
+        }
+        .news-card-4col .news-body .news-badge.cyber {
+            background: rgba(0, 255, 100, 0.08);
+            color: #00ff64;
+            border-color: rgba(0, 255, 100, 0.08);
+        }
+        .news-card-4col .news-body .news-badge.hot {
+            background: rgba(255, 0, 110, 0.15);
+            color: #ff006e;
+            border-color: rgba(255, 0, 110, 0.1);
+        }
+        .news-card-4col .news-body .news-badge.security {
+            background: rgba(255, 200, 0, 0.1);
+            color: #ffc800;
+            border-color: rgba(255, 200, 0, 0.08);
+        }
+        .news-card-4col .news-body .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        .news-card-4col .news-body h3 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e8e8f5;
+            margin-bottom: 0.2rem;
+            line-height: 1.3;
+            min-height: 48px;
+        }
+        .news-card-4col .news-body .news-meta {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.65rem;
+            color: #666688;
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.4rem;
+        }
+        .news-card-4col .news-body .news-meta i {
+            color: #00d4ff;
+            margin-right: 0.2rem;
+        }
+        .news-card-4col .news-body p {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.78rem;
+            color: #b0b0c8;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.8rem;
+            min-height: 60px;
+        }
+        .news-card-4col .news-body .btn-news {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 1.2rem;
+            background: transparent;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 999px;
+            color: #00d4ff;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .news-card-4col .news-body .btn-news:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+        .news-card-4col.featured {
+            border-color: rgba(0, 212, 255, 0.15);
+            background: rgba(0, 212, 255, 0.03);
+        }
+        @media (max-width: 1024px) {
+            .news-grid-4col {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .news-grid-4col {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                gap: 1.2rem;
+            }
+            .news-card-4col .news-image {
+                height: 180px;
+            }
+            .news-card-4col .news-body h3 {
+                min-height: auto;
+            }
+            .news-card-4col .news-body p {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://d2eioyamun8mp1.cloudfront.net/images/1778429322279_xe9Oxxk0FV.png" alt="Nguyễn Vinh Cypher" />
+            <span class="logo-text">NGUYỄN VINH CYPHER</span>
+        </div>
+        <ul>
+            <li><a href="timkiem.html">Tìm kiếm</a></li>
+            <li><a href="#tech">Công nghệ</a></li>
+            <li><a href="#news">Tin tức công nghệ</a></li>
+        </ul>
+    </nav>
+    <div class="cyber-ticker">
+        <div class="ticker-track">
+            <span>
+                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">◆</span>
+            </span>
+            <span>
+                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">◆</span>
+            </span>
+            <span>
+                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">◆</span>
+            </span>
+        </div>
+    </div>
+    <section class="hero">
+        <video class="hero-video-bg" autoplay muted loop playsinline preload="auto" id="bgVideo">
+            <source src="https://res.cloudinary.com/dibalsqpg/video/upload/v1782031685/Comp_1_1_lvj6ma.mp4" type="video/mp4" id="videoSource" />
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-brand">NGUYENVINHCYPHER.COM</div>
+            <p>Trang web bán phần mềm bảo mật uy tín</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="number">99.9%</div>
+                    <div class="label">Phát hiện đe dọa</div>
+                </div>
+                <div class="stat">
+                    <div class="number">5M+</div>
+                    <div class="label">Người dùng</div>
+                </div>
+                <div class="stat">
+                    <div class="number">24/7</div>
+                    <div class="label">Hỗ trợ</div>
+                </div>
+            </div>
+            <div class="cta-buttons">
+                <a href="holosec.html" class="btn btn-primary"><i class="fas fa-download"></i>Tải ngay</a>
+                <a href="https://www.youtube.com/watch?v=BfF378OAhYk&t=116s" target="_blank" class="btn btn-secondary"><i class="fas fa-play"></i>Xem demo</a>
+            </div>
+        </div>
+    </section>
+    <div class="cyber-ticker">
+        <div class="ticker-track">
+            <span>
+                <span class="icon-symbol">⬢</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">⬢</span>
+            </span>
+            <span>
+                <span class="icon-symbol">⬢</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">⬢</span>
+            </span>
+            <span>
+                <span class="icon-symbol">⬢</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">⬢</span>
+            </span>
+        </div>
+    </div>
+    <section class="holosec" id="holosec" style="padding-bottom: 0; background: rgba(0, 0, 0, 0.2);">
+        <div class="holosec-container">
+            <div class="holosec-content">
+                <h2>Phần Mềm Holosec</h2>
+                <p class="subtitle">Bảo vệ toàn diện - Công nghệ đột phá</p>
+                <p>
+                    <span class="highlight">Holosec</span> là phần mềm bảo mật thế hệ mới được phát triển bởi
+                    <span class="highlight">Nguyễn Vinh Cypher</span>, tích hợp trí tuệ nhân tạo (AI) và học máy
+                    để bảo vệ thiết bị của bạn khỏi mọi mối đe dọa.
+                </p>
+                <p>
+                    Không chỉ dừng lại ở việc chống virus thông thường, <span class="highlight">Holosec</span>
+                    còn cung cấp khả năng <span class="highlight">phân tích hành vi</span>,
+                    <span class="highlight">phát hiện lừa đảo</span> và
+                    <span class="highlight">bảo vệ quyền riêng tư</span> một cách toàn diện.
+                </p>
+                <div class="download-buttons-holosec">
+                    <a href="holosec.html" class="download-btn-img">
+                        <img src="https://cdn.intheloop.io/wp-content/uploads/2020/08/windows-button.png" alt="Tải xuống cho Windows" />
+                    </a>
+                    <a href="holosec.html" class="download-btn-img">
+                        <img src="https://i.postimg.cc/t1ppTVx1/download-for-android.webp" alt="Tải xuống cho Android" />
+                    </a>
+                </div>
+            </div>
+            <div class="holosec-image" id="holosecImage">
+                <img src="https://i.postimg.cc/nhYHSy5q/comp2.png" alt="Holosec - Phần mềm bảo mật toàn diện" />
+                <div class="product-shadow"></div>
+            </div>
+        </div>
+        <div class="product-stage-wrapper">
+            <div class="product-stage"></div>
+        </div>
+    </section>
+    <div class="cyber-ticker">
+        <div class="ticker-track">
+            <span>
+                <span class="icon-symbol">▣</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">▣</span>
+            </span>
+            <span>
+                <span class="icon-symbol">▣</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">▣</span>
+            </span>
+            <span>
+                <span class="icon-symbol">▣</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                <span class="icon-symbol">▣</span>
+            </span>
+        </div>
+    </div>
+    <div class="universe-bg-wrapper" id="universeWrapper">
+        <div class="parallax-bg-layer" id="parallaxBg">
+            <img src="https://i.ibb.co/Gv2sFzhZ/Chat-GPT-Image-18-53-33-21-thg-6-2026-1.png" alt="Background" />
+        </div>
+        <div class="nebula-glow-1"></div>
+        <div class="nebula-glow-2"></div>
+        <section class="comparison-section" style="padding-top: 0.5rem;">
+            <img class="bg-image" src="https://sf-static.upanhlaylink.com/img/image_202606213976ef378cfd2b8d7145964cbfc2c7bd.jpg" alt="Main animation_00234.png" />
+            <div class="section-overlay"></div>
+            <div class="comparison-grid-bg"></div>
+            <div class="comparison-header reveal-on-scroll">
+                <h2>Holosec Vượt Trội Toàn Diện</h2>
+                <p class="subtitle">Sức mạnh công nghệ bảo mật thế hệ mới</p>
+            </div>
+            <div class="ai-core-wrapper reveal-on-scroll">
+                <div class="ai-core">
+                    <div class="core-content">
+                        <span class="icon"><i class="fas fa-cpu"></i></span>
+                        <span class="label">CÔNG NGHỆ LÕI</span>
+                    </div>
+                </div>
+            </div>
+            <div class="comparison-connections reveal-on-scroll">
+                <svg viewBox="0 0 1100 600" preserveAspectRatio="none">
+                    <line class="conn-line" x1="550" y1="200" x2="200" y2="320" />
+                    <line class="conn-line" x1="550" y1="200" x2="550" y2="320" />
+                    <line class="conn-line" x1="550" y1="200" x2="900" y2="320" />
+                    <line class="conn-line" x1="550" y1="200" x2="200" y2="480" />
+                    <line class="conn-line" x1="550" y1="200" x2="550" y2="480" />
+                    <line class="conn-line" x1="550" y1="200" x2="900" y2="480" />
+                    <line class="conn-line conn-line-highlight" x1="200" y1="320" x2="550" y2="320" />
+                    <line class="conn-line conn-line-highlight" x1="550" y1="320" x2="900" y2="320" />
+                    <line class="conn-line conn-line-highlight" x1="200" y1="480" x2="550" y2="480" />
+                    <line class="conn-line conn-line-highlight" x1="550" y1="480" x2="900" y2="480" />
+                    <line class="conn-line" x1="200" y1="320" x2="200" y2="480" />
+                    <line class="conn-line" x1="550" y1="320" x2="550" y2="480" />
+                    <line class="conn-line" x1="900" y1="320" x2="900" y2="480" />
+                </svg>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-brain"></i></span>
+                        <span class="tag">SYSTEM://AI</span>
+                    </div>
+                    <h4>AI Thông Minh</h4>
+                    <p>Holosec sử dụng <span class="check">AI tiên tiến</span> để phát hiện mối đe dọa, trong khi các phần mềm khác chủ yếu dựa vào <span class="cross">chữ ký virus truyền thống</span>.</p>
+                </div>
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="tag">DATA://SHIELD</span>
+                    </div>
+                    <h4>Phân Tích Hành Vi</h4>
+                    <p>Holosec <span class="check">phân tích hành vi</span> theo thời gian thực, không chỉ quét file. Các phần mềm khác thường <span class="cross">chỉ quét khi có yêu cầu</span>.</p>
+                </div>
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-layer-group"></i></span>
+                        <span class="tag">SYSTEM://COMP</span>
+                    </div>
+                    <h4>Bảo Vệ Đa Lớp</h4>
+                    <p>Holosec cung cấp <span class="check">bảo vệ đa lớp</span> (web, email, ứng dụng). Phần mềm thông thường chỉ <span class="cross">tập trung vào một lớp</span>.</p>
+                </div>
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-bolt"></i></span>
+                        <span class="tag">DATA://SHIELD</span>
+                    </div>
+                    <h4>Hiệu Suất Tối Ưu</h4>
+                    <p>Holosec được <span class="check">tối ưu hóa</span> để không làm chậm máy. Nhiều phần mềm khác <span class="cross">tiêu tốn nhiều tài nguyên</span> hệ thống.</p>
+                </div>
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-globe"></i></span>
+                        <span class="tag">SYSTEM://COMP</span>
+                    </div>
+                    <h4>Cập Nhật Liên Tục</h4>
+                    <p>Holosec <span class="check">cập nhật</span> dữ liệu mối đe dọa mới nhất mỗi ngày. Phần mềm khác thường <span class="cross">cập nhật chậm</span> hơn.</p>
+                </div>
+                <div class="comparison-item reveal-on-scroll">
+                    <div class="item-header">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="tag">DATA://SHIELD</span>
+                    </div>
+                    <h4>Quyền Riêng Tư</h4>
+                    <p>Holosec <span class="check">không thu thập</span> dữ liệu cá nhân của bạn. Nhiều phần mềm khác <span class="cross">thu thập và bán</span> dữ liệu người dùng.</p>
+                </div>
+            </div>
+        </section>
+        <div class="cyber-ticker">
+            <div class="ticker-track">
+                <span>
+                    <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                    <span class="icon-symbol">◆</span>
+                </span>
+                <span>
+                    <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                    <span class="icon-symbol">◆</span>
+                </span>
+                <span>
+                    <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
+                    <span class="icon-symbol">◆</span>
+                </span>
+            </div>
+        </div>
+        <section class="features-holosec" id="features-holosec">
+            <div class="features-holosec-container">
+                <div class="features-holosec-globe" id="globeContainer">
+                    <div class="globe-container">
+                        <canvas id="globeCanvas"></canvas>
+                    </div>
+                </div>
+                <div class="features-holosec-content">
+                    <h2>Các tính năng của Holosec</h2>
+                    <div class="feature-item reveal-on-scroll" style="transition-delay: 0.1s;">
+                        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="text">
+                            <h4>Bảo vệ thời gian thực</h4>
+                            <p>Holosec liên tục giám sát và bảo vệ thiết bị của bạn 24/7, phát hiện và ngăn chặn các mối đe dọa ngay lập tức trước khi chúng có thể gây hại.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-on-scroll" style="transition-delay: 0.2s;">
+                        <div class="icon"><i class="fas fa-brain"></i></div>
+                        <div class="text">
+                            <h4>Trí tuệ nhân tạo AI</h4>
+                            <p>Sử dụng công nghệ AI tiên tiến để nhận diện các mối đe dọa mới, học hỏi từ hành vi của malware và tự động cập nhật để bảo vệ bạn khỏi các cuộc tấn công tinh vi.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-on-scroll" style="transition-delay: 0.3s;">
+                        <div class="icon"><i class="fas fa-user-secret"></i></div>
+                        <div class="text">
+                            <h4>Bảo vệ quyền riêng tư</h4>
+                            <p>Holosec không thu thập dữ liệu cá nhân của bạn, đồng thời chặn các trình theo dõi, bảo vệ thông tin nhạy cảm khỏi bị đánh cắp hoặc sử dụng trái phép.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-on-scroll" style="transition-delay: 0.4s;">
+                        <div class="icon"><i class="fas fa-phone-slash"></i></div>
+                        <div class="text">
+                            <h4>Phân tích cuộc gọi</h4>
+                            <p>Phân tích cuộc gọi thoại và video theo thời gian thực, phát hiện giọng nói AI giả mạo, kịch bản lừa đảo và các dấu hiệu bất thường để cảnh báo bạn kịp thời.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="features" id="features">
+            <h2 class="section-title"><i class="fas fa-star" style="color:#00d4ff; margin-right:0.5rem;"></i>Tính năng nổi bật</h2>
+            <p class="section-sub">Trang bị hệ thống bảo vệ đa lớp, phát hiện và ngăn chặn mọi mối đe dọa</p>
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Bảo vệ Real-time</h3>
+                    <p>Quét virus, malware and các mối đe dọa nguy hiểm trên hệ thống của bạn mọi lúc, mọi nơi với công nghệ phát hiện đa tầng.</p>
+                    <span class="tag">Luôn bật</span>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI thông minh</h3>
+                    <p>Công nghệ AI tiên tiến phát hiện và xử lý các mối đe dọa mới chưa biết thông qua mô hình học sâu và phân tích hành vi.</p>
+                    <span class="tag">Deep Learning</span>
+                </div>
+                <div class="feature-card glass-card">
+                    <div class="icon"><i class="fas fa-eye-slash"></i></div>
+                    <h3>Chống theo dõi & Lừa đảo</h3>
+                    <p>Chặn các trình theo dõi, quảng cáo, và phát hiện các trang web lừa đảo, giả mạo ngân hàng, yêu cầu OTP bất thường.</p>
+                    <span class="tag">Privacy First</span>
+                </div>
+            </div>
+        </section>
+        <section class="tech-section" id="tech">
+            <h2 class="section-title"><i class="fas fa-cogs" style="color:#7f39fb; margin-right:0.5rem;"></i>Công nghệ & Cơ chế hoạt động</h2>
+            <p class="section-sub">Sử dụng các công nghệ tiên tiến để bảo vệ bạn một cách toàn diện</p>
+            <div class="tech-grid">
+                <div class="tech-card glass-card">
+                    <span class="icon"><i class="fas fa-vector-square"></i></span>
+                    <h4>Phát hiện đa vector</h4>
+                    <p>Kết hợp phân tích URL, tiêu đề trang, nội dung OCR và hình ảnh để đưa ra quyết định chính xác.</p>
+                    <span class="tech-tag">Multi-Vector</span>
+                </div>
+                <div class="tech-card glass-card">
+                    <span class="icon"><i class="fas fa-robot"></i></span>
+                    <h4>Groq AI - Llama 3.3 70B</h4>
+                    <p>Sử dụng mô hình ngôn ngữ lớn để phân tích nội dung, phát hiện các kịch bản lừa đảo tinh vi.</p>
+                    <span class="tech-tag">LLM</span>
+                </div>
+                <div class="tech-card glass-card">
+                    <span class="icon"><i class="fas fa-camera"></i></span>
+                    <h4>Thị giác máy tính</h4>
+                    <p>Phân tích hình ảnh trang web để phát hiện các yếu tố đặc trưng của cờ bạc, nội dung người lớn.</p>
+                    <span class="tech-tag">Computer Vision</span>
+                </div>
+            </div>
+        </section>
+        <section class="news-section" id="news">
+            <h2 class="section-title"><i class="fas fa-newspaper" style="color:#ff006e; margin-right:0.5rem;"></i>Tin tức công nghệ</h2>
+            <p class="section-sub">Cập nhật xu hướng AI, chiến lược số và an ninh mạng từ các cổng thông tin Chính phủ uy tín</p>
+            <div class="news-grid-4col">
+                <div class="news-card-4col">
+                    <div class="news-image">
+                        <img src="https://bcp.cdnchinhphu.vn/334894974524682240/2026/6/30/ag2i9496-17828282232502116450644-99-0-1349-2000-crop-1782828476508949717548.jpg" alt="Chiến lược AI Quốc gia" />
+                    </div>
+                    <div class="news-body">
+                        <span class="news-badge gov"><i class="fas fa-gavel"></i> Chính phủ</span>
+                        <h3>Chiến lược AI Quốc gia đến năm 2030</h3>
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> 28/06/2026</span>
+                            <span><i class="fas fa-eye"></i> 1.2K</span>
+                        </div>
+                        <p>Chính phủ ban hành chiến lược quốc gia về nghiên cứu, phát triển và ứng dụng Trí tuệ nhân tạo, định hướng phát triển AI tại Việt Nam đến năm 2030.</p>
+                        <a href="https://chinhphu.vn" target="_blank" class="btn-news"><i class="fas fa-external-link-alt"></i> Đọc thêm</a>
+                    </div>
+                </div>
+                <div class="news-card-4col featured">
+                    <div class="news-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmZA2b6ig70vPS-8gk9YWWxDsVRkjD9viKUChJctH7Hw&s=10" alt="An ninh mạng" />
+                    </div>
+                    <div class="news-body">
+                        <div class="badge-group">
+                            <span class="news-badge hot"><i class="fas fa-fire"></i> Nổi bật</span>
+                            <span class="news-badge security"><i class="fas fa-shield-alt"></i> An toàn</span>
+                        </div>
+                        <h3>Chuyển đổi số & An ninh mạng quốc gia</h3>
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> 27/06/2026</span>
+                            <span><i class="fas fa-eye"></i> 2.8K</span>
+                        </div>
+                        <p>Bộ Thông tin và Truyền thông công bố kế hoạch tổng thể về chuyển đổi số quốc gia, đồng thời đưa ra cảnh báo về các chiến dịch tấn công mạng mới nhắm vào hạ tầng số.</p>
+                        <a href="https://mic.gov.vn" target="_blank" class="btn-news"><i class="fas fa-external-link-alt"></i> Đọc thêm</a>
+                    </div>
+                </div>
+                <div class="news-card-4col">
+                    <div class="news-image">
+                        <img src="https://wcm/connect/e6c02153-b089-4fb2-b18b-7d7cd1eb8905/1/image001.jpg?MOD=AJPERES" alt="Chuyển đổi số" />
+                    </div>
+                    <div class="news-body">
+                        <span class="news-badge tech"><i class="fas fa-microchip"></i> Công nghệ</span>
+                        <h3>Việt Nam đẩy mạnh chuyển đổi số toàn diện</h3>
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> 26/06/2026</span>
+                            <span><i class="fas fa-eye"></i> 950</span>
+                        </div>
+                        <p>Chính phủ đặt mục tiêu đưa Việt Nam vào nhóm 50 quốc gia hàng đầu về chuyển đổi số, tập trung phát triển hạ tầng số và nâng cao năng lực an ninh mạng quốc gia.</p>
+                        <a href="https://chinhphu.vn" target="_blank" class="btn-news"><i class="fas fa-external-link-alt"></i> Đọc thêm</a>
+                    </div>
+                </div>
+                <div class="news-card-4col">
+                    <div class="news-image">
+                        <img src="https://img.lsvn.vn/vne-news/June2024/Untitled75.jpg" alt="Cảnh báo mã độc" />
+                    </div>
+                    <div class="news-body">
+                        <span class="news-badge cyber"><i class="fas fa-bug"></i> An ninh mạng</span>
+                        <h3>Cảnh báo mã độc tấn công hệ thống tại Việt Nam</h3>
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> 25/06/2026</span>
+                            <span><i class="fas fa-eye"></i> 1.5K</span>
+                        </div>
+                        <p>Bộ Thông tin và Truyền thông phát đi cảnh báo khẩn về chiến dịch tấn công mã độc quy mô lớn nhắm vào các cơ quan, tổ chức tại Việt Nam, khuyến cáo người dân nâng cao cảnh giác.</p>
+                        <a href="https://mic.gov.vn" target="_blank" class="btn-news"><i class="fas fa-external-link-alt"></i> Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="made-with-title">
+                <i class="fas fa-code"></i> MADE WITH
+            </div>
+            <div class="made-with-wrapper">
+                <div class="made-with-track">
+                    <a href="https://opencv.org" target="_blank" class="tech-item" title="OpenCV">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/OpenCV_Logo_with_text.png" alt="OpenCV" class="logo-opencv" />
+                        OpenCV
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com" target="_blank" class="tech-item" title="GitHub">
+                        <i class="fab fa-github icon-svg"></i> GitHub
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://groq.com" target="_blank" class="tech-item" title="Groq">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Groq_logo.svg/3840px-Groq_logo.svg.png" alt="Groq" class="logo-groq" />
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com/tesseract-ocr/tesseract" target="_blank" class="tech-item" title="Tesseract OCR">
+                        <i class="fas fa-font icon-svg"></i> Tesseract OCR
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://ubuntu.com" target="_blank" class="tech-item" title="Ubuntu">
+                        <i class="fab fa-ubuntu icon-svg"></i> Ubuntu
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://linux.org" target="_blank" class="tech-item" title="Linux">
+                        <i class="fab fa-linux icon-svg"></i> Linux
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://www.microsoft.com/windows" target="_blank" class="tech-item" title="Windows">
+                        <i class="fab fa-windows icon-svg"></i> Windows
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://kivy.org" target="_blank" class="tech-item" title="Kivy">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" alt="Kivy" />
+                        Kivy
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://buildozer.readthedocs.io" target="_blank" class="tech-item" title="Buildozer">
+                        <i class="fas fa-cube icon-svg"></i> Buildozer
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://python.org" target="_blank" class="tech-item" title="Python">
+                        <i class="fab fa-python icon-svg"></i> Python
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://isocpp.org" target="_blank" class="tech-item" title="C++">
+                        <i class="fas fa-code icon-svg"></i> C++
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://opencv.org" target="_blank" class="tech-item" title="OpenCV">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/OpenCV_Logo_with_text.png" alt="OpenCV" class="logo-opencv" />
+                        OpenCV
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com" target="_blank" class="tech-item" title="GitHub">
+                        <i class="fab fa-github icon-svg"></i> GitHub
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://groq.com" target="_blank" class="tech-item" title="Groq">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Groq_logo.svg/3840px-Groq_logo.svg.png" alt="Groq" class="logo-groq" />
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com/tesseract-ocr/tesseract" target="_blank" class="tech-item" title="Tesseract OCR">
+                        <i class="fas fa-font icon-svg"></i> Tesseract OCR
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://ubuntu.com" target="_blank" class="tech-item" title="Ubuntu">
+                        <i class="fab fa-ubuntu icon-svg"></i> Ubuntu
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://linux.org" target="_blank" class="tech-item" title="Linux">
+                        <i class="fab fa-linux icon-svg"></i> Linux
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://www.microsoft.com/windows" target="_blank" class="tech-item" title="Windows">
+                        <i class="fab fa-windows icon-svg"></i> Windows
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://kivy.org" target="_blank" class="tech-item" title="Kivy">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" alt="Kivy" />
+                        Kivy
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://buildozer.readthedocs.io" target="_blank" class="tech-item" title="Buildozer">
+                        <i class="fas fa-cube icon-svg"></i> Buildozer
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://python.org" target="_blank" class="tech-item" title="Python">
+                        <i class="fab fa-python icon-svg"></i> Python
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://isocpp.org" target="_blank" class="tech-item" title="C++">
+                        <i class="fas fa-code icon-svg"></i> C++
+                    </a>
+                    <span class="sep-dot">●</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nguyễn Vinh Cypher. Bảo vệ toàn diện cho thế giới số.</p>
+                <div class="footer-links">
+                    <a href="terms.html">Điều khoản và Điều kiện</a>
+                    <span class="sep">|</span>
+                    <a href="privacy.html">Chính sách Quyền riêng tư</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="termsModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;transition:opacity 0.5s ease;opacity:0;pointer-events:none;">
+        <div style="background:rgba(6,6,20,0.95);border:1px solid rgba(0,212,255,0.15);border-radius:16px;padding:2.5rem;max-width:580px;width:100%;box-shadow:0 20px 80px rgba(0,0,0,0.8),0 0 40px rgba(0,212,255,0.05);clip-path:polygon(20px 0%,100% 0%,100% calc(100% - 20px),calc(100% - 20px) 100%,0% 100%,0% 20px);">
+            <div style="text-align:center;margin-bottom:1.5rem;">
+                <div style="font-size:3.2rem;color:#00d4ff;margin-bottom:0.5rem;filter:drop-shadow(0 0 30px rgba(0,212,255,0.3));">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <h2 style="font-family:'Chakra Petch',sans-serif;font-size:1.6rem;font-weight:700;color:#e8e8f5;margin-bottom:0.3rem;">
+                    Chào mừng đến với Holosec
+                </h2>
+                <p style="font-family:'Exo 2',sans-serif;color:#a0a0b8;font-size:0.95rem;line-height:1.6;">
+                    Vui lòng đọc và đồng ý với <strong style="color:#00d4ff;">Điều khoản và Điều kiện</strong> để tiếp tục sử dụng.
+                </p>
+            </div>
+            <div style="background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.06);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;max-height:160px;overflow-y:auto;font-family:'Exo 2',sans-serif;font-size:0.82rem;color:#b0b0c8;line-height:1.7;">
+                <p><i class="fas fa-check-circle" style="color:#3cc864;margin-right:0.4rem;"></i> Tôi đồng ý cho Nguyễn Vinh Cypher thu thập và xử lý dữ liệu trên thiết bị của tôi với mục đích bảo vệ và phòng chống các mối đe dọa mạng.</p>
+                <p><i class="fas fa-check-circle" style="color:#3cc864;margin-right:0.4rem;"></i> Tôi đã đọc và hiểu rõ <a href="terms.html" target="_blank" style="color:#00d4ff;text-decoration:underline;">Điều khoản và Điều kiện</a> cũng như <a href="privacy.html" target="_blank" style="color:#7f39fb;text-decoration:underline;">Chính sách Quyền riêng tư</a>.</p>
+                <p><i class="fas fa-check-circle" style="color:#3cc864;margin-right:0.4rem;"></i> Tôi hiểu rằng tôi có thể rút lại sự đồng ý bất cứ lúc nào bằng cách gỡ cài đặt phần mềm.</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+                <label style="display:flex;align-items:center;gap:0.6rem;font-family:'Exo 2',sans-serif;font-size:0.9rem;color:#c0c0d8;cursor:pointer;">
+                    <input type="checkbox" id="termsCheckbox" style="width:18px;height:18px;accent-color:#00d4ff;cursor:pointer;border-radius:4px;" />
+                    <span>Tôi đã đọc và đồng ý</span>
+                </label>
+                <a href="terms.html" target="_blank" style="font-family:'Exo 2',sans-serif;font-size:0.8rem;color:#00d4ff;text-decoration:none;transition:0.3s;">
+                    <i class="fas fa-file-contract"></i> Xem chi tiết
+                </a>
+                <a href="privacy.html" target="_blank" style="font-family:'Exo 2',sans-serif;font-size:0.8rem;color:#7f39fb;text-decoration:none;transition:0.3s;">
+                    <i class="fas fa-shield-alt"></i> Quyền riêng tư
+                </a>
+            </div>
+            <button id="acceptTermsBtn" style="width:100%;padding:0.9rem;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(127,57,251,0.15));border:1px solid rgba(0,212,255,0.2);border-radius:999px;color:#666688;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:0.3s;opacity:0.5;pointer-events:none;">
+                <i class="fas fa-check"></i> Đồng ý và tiếp tục
+            </button>
+            <p style="text-align:center;font-family:'Exo 2',sans-serif;font-size:0.7rem;color:#666688;margin-top:1rem;">
+                Bạn phải đồng ý với điều khoản để sử dụng Holosec.
+            </p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('termsModal');
+        var checkbox = document.getElementById('termsCheckbox');
+        var acceptBtn = document.getElementById('acceptTermsBtn');
+        var hasAgreed = sessionStorage.getItem('holosec_terms_accepted');
+        if (!hasAgreed) {
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+            document.body.style.overflow = 'hidden';
+        }
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                acceptBtn.style.opacity = '1';
+                acceptBtn.style.pointerEvents = 'auto';
+                acceptBtn.style.color = '#00d4ff';
+                acceptBtn.style.borderColor = 'rgba(0,212,255,0.4)';
+                acceptBtn.style.background = 'linear-gradient(135deg, rgba(0,212,255,0.2), rgba(127,57,251,0.2))';
+            } else {
+                acceptBtn.style.opacity = '0.5';
+                acceptBtn.style.pointerEvents = 'none';
+                acceptBtn.style.color = '#666688';
+                acceptBtn.style.borderColor = 'rgba(0,212,255,0.2)';
+                acceptBtn.style.background = 'linear-gradient(135deg, rgba(0,212,255,0.15), rgba(127,57,251,0.15))';
+            }
+        });
+        acceptBtn.addEventListener('click', function() {
+            if (checkbox.checked) {
+                sessionStorage.setItem('holosec_terms_accepted', 'true');
+                modal.style.opacity = '0';
+                modal.style.pointerEvents = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        checkbox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                this.checked = !this.checked;
+                this.dispatchEvent(new Event('change'));
+            }
+        });
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal && !checkbox.checked) {
+            }
+        });
+    });
+    </script>
+</body>
+</html>

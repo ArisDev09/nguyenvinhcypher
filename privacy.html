@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quyền riêng tư - Nguyễn Vinh Cypher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .privacy-page {
+            padding: 8rem 2.5rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        .privacy-page .breadcrumb {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+            color: #666688;
+            margin-bottom: 2rem;
+        }
+        .privacy-page .breadcrumb a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .privacy-page .breadcrumb a:hover {
+            color: #7f39fb;
+        }
+        .privacy-page .breadcrumb span {
+            color: #8888aa;
+        }
+        .privacy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .privacy-header .icon {
+            font-size: 3rem;
+            color: #7f39fb;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .privacy-header h1 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7f39fb, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .privacy-header .subtitle {
+            font-family: 'Exo 2', sans-serif;
+            color: #a0a0b8;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        .privacy-header .update-date {
+            font-family: 'Exo 2', sans-serif;
+            color: #666688;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+        .privacy-content {
+            background: rgba(6, 6, 20, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.08);
+            padding: 2.5rem;
+            border-radius: 12px;
+            clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+        }
+        .privacy-content .section {
+            margin-bottom: 2.5rem;
+        }
+        .privacy-content .section:last-child {
+            margin-bottom: 0;
+        }
+        .privacy-content .section h2 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e8e8f5;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .privacy-content .section h2 i {
+            color: #7f39fb;
+            font-size: 1.2rem;
+        }
+        .privacy-content .section h2 .badge {
+            font-size: 0.55rem;
+            background: rgba(127, 57, 251, 0.15);
+            color: #7f39fb;
+            padding: 0.15rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .privacy-content .section p {
+            font-family: 'Exo 2', sans-serif;
+            color: #c0c0d8;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        .privacy-content .section p:last-child {
+            margin-bottom: 0;
+        }
+        .privacy-content .section ul {
+            font-family: 'Exo 2', sans-serif;
+            color: #c0c0d8;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        .privacy-content .section ul li {
+            margin-bottom: 0.3rem;
+        }
+        .privacy-content .section ul li i {
+            color: #7f39fb;
+            margin-right: 0.5rem;
+            font-size: 0.7rem;
+        }
+        .privacy-content .section .highlight-box {
+            background: rgba(127, 57, 251, 0.05);
+            border-left: 3px solid #7f39fb;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .privacy-content .section .highlight-box p {
+            margin-bottom: 0;
+            font-size: 0.92rem;
+        }
+        .privacy-content .section .highlight-box.warning {
+            border-left-color: #ff006e;
+            background: rgba(255, 0, 110, 0.05);
+        }
+        .privacy-content .section .highlight-box.success {
+            border-left-color: #3cc864;
+            background: rgba(60, 200, 100, 0.05);
+        }
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .privacy-grid .grid-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .privacy-grid .grid-item:hover {
+            background: rgba(127, 57, 251, 0.04);
+            border-color: rgba(127, 57, 251, 0.1);
+        }
+        .privacy-grid .grid-item .icon {
+            font-size: 1.5rem;
+            color: #7f39fb;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .privacy-grid .grid-item h4 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.95rem;
+            color: #e0e0f0;
+            margin-bottom: 0.3rem;
+        }
+        .privacy-grid .grid-item p {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+            color: #a0a0b8;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+        .privacy-footer {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .privacy-footer .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 2.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(127, 57, 251, 0.15));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 999px;
+            color: #00d4ff;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .privacy-footer .btn-back:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(127, 57, 251, 0.25));
+            border-color: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .made-with-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: rgba(0,0,0,0.15);
+            border-top: 1px solid rgba(0,212,255,0.06);
+            border-bottom: 1px solid rgba(0,212,255,0.06);
+            padding: 0.8rem 0;
+            margin: 0.8rem 0;
+        }
+        .made-with-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.03), transparent);
+            animation: madeWithScan 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes madeWithScan {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+        .made-with-track {
+            display: flex;
+            white-space: nowrap;
+            animation: madeWithMove 40s linear infinite;
+            width: max-content;
+            align-items: center;
+            gap: 1.8rem;
+            padding: 0 2rem;
+        }
+        .made-with-track .tech-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #8888aa;
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 0.2rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .made-with-track .tech-item:hover {
+            color: #00d4ff;
+            background: rgba(0,212,255,0.05);
+            border-color: rgba(0,212,255,0.1);
+            transform: scale(1.05);
+        }
+        .made-with-track .tech-item img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0.6) saturate(0.5);
+            transition: 0.3s;
+        }
+        .made-with-track .tech-item:hover img {
+            filter: brightness(1) saturate(1);
+        }
+        .made-with-track .tech-item .icon-svg {
+            font-size: 1.8rem;
+            color: #8888aa;
+            transition: 0.3s;
+        }
+        .made-with-track .tech-item:hover .icon-svg {
+            color: #00d4ff;
+        }
+        .made-with-track .sep-dot {
+            color: #333355;
+            font-size: 0.6rem;
+        }
+        @keyframes madeWithMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .made-with-title {
+            text-align: center;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+            color: #555577;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .made-with-title i {
+            color: #00d4ff;
+            margin-right: 0.5rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        .footer-links a {
+            color: #8888aa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            color: #00d4ff;
+        }
+        .footer-links .sep {
+            color: #444466;
+        }
+        .logo-groq {
+            filter: brightness(0.7) saturate(0.3) hue-rotate(200deg) !important;
+        }
+        .logo-opencv {
+            filter: brightness(0.7) saturate(0.5) !important;
+        }
+        .made-with-track .tech-item:hover .logo-groq {
+            filter: brightness(1) saturate(1) hue-rotate(0deg) !important;
+        }
+        .made-with-track .tech-item:hover .logo-opencv {
+            filter: brightness(1) saturate(1) !important;
+        }
+        footer {
+            padding: 1.5rem 0 1.5rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            color: #666688;
+            font-size: 0.85rem;
+            background: #000002;
+            position: relative;
+            z-index: 2;
+            font-family: 'Exo 2', sans-serif;
+            width: 100%;
+        }
+        .footer-content {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .footer-content .footer-bottom {
+            padding: 0 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-page {
+                padding: 6rem 1rem 2rem;
+            }
+            .privacy-header h1 {
+                font-size: 2rem;
+            }
+            .privacy-content {
+                padding: 1.5rem;
+            }
+            .privacy-content .section h2 {
+                font-size: 1.1rem;
+            }
+            .privacy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://d2eioyamun8mp1.cloudfront.net/images/1778429322279_xe9Oxxk0FV.png" alt="Nguyễn Vinh Cypher" />
+            <span class="logo-text">NGUYỄN VINH CYPHER</span>
+        </div>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="timkiem.html">Tìm kiếm</a></li>
+            <li><a href="terms.html">Điều khoản</a></li>
+            <li><a href="privacy.html" style="color:#7f39fb;">Quyền riêng tư</a></li>
+        </ul>
+    </nav>
+
+    <div class="privacy-page">
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> <i class="fas fa-chevron-right" style="font-size:0.6rem; margin:0 0.5rem;"></i>
+            <span>Chính sách Quyền riêng tư</span>
+        </div>
+
+        <div class="privacy-header">
+            <span class="icon"><i class="fas fa-shield-alt"></i></span>
+            <h1>Chính sách Quyền riêng tư</h1>
+            <p class="subtitle">Cam kết bảo vệ dữ liệu và quyền riêng tư của bạn</p>
+            <p class="update-date"><i class="fas fa-clock"></i> Cập nhật lần cuối: 30 tháng 6, 2026</p>
+        </div>
+
+        <div class="privacy-content">
+            <div class="section">
+                <h2><i class="fas fa-heart"></i> 1. Cam kết của chúng tôi</h2>
+                <p>Tại <strong>Nguyễn Vinh Cypher</strong>, chúng tôi hiểu rằng quyền riêng tư là một trong những quyền cơ bản nhất của bạn. Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn và đảm bảo rằng dữ liệu của bạn chỉ được sử dụng để bảo vệ bạn khỏi các mối đe dọa mạng.</p>
+                <div class="highlight-box success">
+                    <p><i class="fas fa-check-circle" style="color:#3cc864; margin-right:0.5rem;"></i> <strong>Nguyên tắc của chúng tôi:</strong> Minh bạch, Bảo mật và Tôn trọng quyền riêng tư của người dùng.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-database"></i> 2. Dữ liệu chúng tôi thu thập</h2>
+                <p>Để bảo vệ bạn một cách toàn diện, chúng tôi thu thập một số thông tin cần thiết từ thiết bị của bạn. Tất cả đều nhằm mục đích <strong>bảo vệ bạn</strong>, không vì bất kỳ mục đích nào khác:</p>
+                <div class="privacy-grid">
+                    <div class="grid-item">
+                        <span class="icon"><i class="fas fa-laptop"></i></span>
+                        <h4>Thông tin thiết bị</h4>
+                        <p>Hệ điều hành, cấu hình phần cứng, phiên bản phần mềm để tối ưu hóa và tương thích.</p>
+                    </div>
+                    <div class="grid-item">
+                        <span class="icon"><i class="fas fa-network-wired"></i></span>
+                        <h4>Kết nối mạng</h4>
+                        <p>Địa chỉ IP, thông tin kết nối để phát hiện tấn công mạng và lừa đảo từ xa.</p>
+                    </div>
+                    <div class="grid-item">
+                        <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                        <h4>Hành vi hệ thống</h4>
+                        <p>Tiến trình, file truy cập, hoạt động mạng để phát hiện mã độc và hành vi bất thường.</p>
+                    </div>
+                    <div class="grid-item">
+                        <span class="icon"><i class="fas fa-phone"></i></span>
+                        <h4>Phân tích cuộc gọi</h4>
+                        <p>Phân tích giọng nói AI giả mạo, kịch bản lừa đảo (nếu bạn cho phép).</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p><i class="fas fa-info-circle" style="color:#00d4ff; margin-right:0.5rem;"></i> <strong>Lưu ý:</strong> Chúng tôi <strong>không thu thập</strong> nội dung tin nhắn, hình ảnh cá nhân, mật khẩu, thông tin tài chính hoặc dữ liệu nhạy cảm khác trừ khi bạn tự cung cấp cho dịch vụ hỗ trợ.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-cogs"></i> 3. Cách chúng tôi sử dụng dữ liệu</h2>
+                <p>Dữ liệu của bạn được sử dụng với mục đích duy nhất là <strong>bảo vệ bạn</strong> và <strong>cải thiện dịch vụ</strong>:</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <strong>Phát hiện và ngăn chặn</strong> các mối đe dọa bảo mật, mã độc và tấn công mạng.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Phân tích hành vi</strong> để nhận diện các hoạt động bất thường và cảnh báo kịp thời.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Phát hiện lừa đảo</strong> qua cuộc gọi, email và trang web giả mạo.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Cải thiện hiệu suất</strong> và nâng cao các tính năng bảo vệ của Holosec.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Phân tích thống kê</strong> tổng hợp để phát triển chiến lược bảo mật mới.</li>
+                </ul>
+                <div class="highlight-box warning">
+                    <p><i class="fas fa-exclamation-triangle" style="color:#ff006e; margin-right:0.5rem;"></i> <strong>Chúng tôi KHÔNG bao giờ:</strong> Bán dữ liệu cho bên thứ ba, chia sẻ thông tin cá nhân của bạn với nhà quảng cáo, hoặc sử dụng dữ liệu cho mục đích thương mại khác.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-lock"></i> 4. Bảo mật dữ liệu</h2>
+                <p>Chúng tôi áp dụng nhiều lớp bảo mật để bảo vệ dữ liệu của bạn:</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <strong>Mã hóa TLS 1.3</strong> cho mọi kết nối giữa thiết bị của bạn và máy chủ.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Lưu trữ an toàn</strong> trên máy chủ được bảo vệ bởi tường lửa và hệ thống phát hiện xâm nhập (IDS).</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Kiểm soát truy cập</strong> chặt chẽ, chỉ nhân viên được ủy quyền mới có thể truy cập dữ liệu.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Xóa định kỳ</strong> dữ liệu sau 30 ngày nếu không còn cần thiết cho mục đích bảo vệ.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-user-shield"></i> 5. Quyền của bạn</h2>
+                <p>Bạn có toàn quyền kiểm soát dữ liệu của mình:</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <strong>Quyền truy cập:</strong> Yêu cầu xem dữ liệu mà chúng tôi đã thu thập về bạn.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Quyền chỉnh sửa:</strong> Yêu cầu cập nhật hoặc sửa dữ liệu không chính xác.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Quyền xóa:</strong> Yêu cầu xóa toàn bộ dữ liệu của bạn khỏi hệ thống.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Quyền rút lại:</strong> Rút lại sự đồng ý cho phép thu thập dữ liệu bất cứ lúc nào.</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Quyền khiếu nại:</strong> Khiếu nại nếu phát hiện vi phạm quyền riêng tư.</li>
+                </ul>
+                <div class="highlight-box success">
+                    <p><i class="fas fa-envelope" style="color:#3cc864; margin-right:0.5rem;"></i> Để thực hiện các quyền trên, vui lòng liên hệ: <strong>support@nguyenvinhcypher.com</strong></p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-cookie-bite"></i> 6. Cookie và Công nghệ tương tự</h2>
+                <p>Holosec <strong>không sử dụng cookie</strong> để theo dõi hoạt động của bạn trên web. Chúng tôi chỉ sử dụng các công nghệ cần thiết để:</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Duy trì phiên bảo mật của bạn.</li>
+                    <li><i class="fas fa-check-circle"></i> Ghi nhớ các tùy chọn bảo mật của bạn.</li>
+                    <li><i class="fas fa-check-circle"></i> Cải thiện hiệu suất và độ ổn định của phần mềm.</li>
+                </ul>
+                <p>Bạn có thể từ chối các công nghệ này bằng cách tắt tính năng trong phần cài đặt của Holosec.</p>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-envelope"></i> 7. Liên hệ với chúng tôi</h2>
+                <p>Nếu bạn có bất kỳ câu hỏi, thắc mắc hoặc khiếu nại nào về chính sách quyền riêng tư, vui lòng liên hệ:</p>
+                <div class="highlight-box">
+                    <p><strong><i class="fas fa-user"></i> Nguyễn Vinh Cypher</strong></p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:nguyenvinhhoang209@gmail.com" style="color:#00d4ff; text-decoration:none;">nguyenvinhhoang209@gmail.com</a></p>
+                    <p><i class="fas fa-phone"></i> Hotline: <span style="color:#e0e0f0;">0329 299 315</span></p>
+                    <p><i class="fas fa-globe"></i> Website: <a href="index.html" style="color:#00d4ff; text-decoration:none;">nguyenvinhcypher.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-footer">
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Trang chủ</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="made-with-title">
+                <i class="fas fa-code"></i> MADE WITH
+            </div>
+            <div class="made-with-wrapper">
+                <div class="made-with-track">
+                    <a href="https://opencv.org" target="_blank" class="tech-item" title="OpenCV">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/OpenCV_Logo_with_text.png" alt="OpenCV" class="logo-opencv" />
+                        OpenCV
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com" target="_blank" class="tech-item" title="GitHub">
+                        <i class="fab fa-github icon-svg"></i> GitHub
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://groq.com" target="_blank" class="tech-item" title="Groq">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Groq_logo.svg/3840px-Groq_logo.svg.png" alt="Groq" class="logo-groq" />
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com/tesseract-ocr/tesseract" target="_blank" class="tech-item" title="Tesseract OCR">
+                        <i class="fas fa-font icon-svg"></i> Tesseract OCR
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://ubuntu.com" target="_blank" class="tech-item" title="Ubuntu">
+                        <i class="fab fa-ubuntu icon-svg"></i> Ubuntu
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://linux.org" target="_blank" class="tech-item" title="Linux">
+                        <i class="fab fa-linux icon-svg"></i> Linux
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://www.microsoft.com/windows" target="_blank" class="tech-item" title="Windows">
+                        <i class="fab fa-windows icon-svg"></i> Windows
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://kivy.org" target="_blank" class="tech-item" title="Kivy">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" alt="Kivy" />
+                        Kivy
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://buildozer.readthedocs.io" target="_blank" class="tech-item" title="Buildozer">
+                        <i class="fas fa-cube icon-svg"></i> Buildozer
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://python.org" target="_blank" class="tech-item" title="Python">
+                        <i class="fab fa-python icon-svg"></i> Python
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://isocpp.org" target="_blank" class="tech-item" title="C++">
+                        <i class="fas fa-code icon-svg"></i> C++
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://opencv.org" target="_blank" class="tech-item" title="OpenCV">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/OpenCV_Logo_with_text.png" alt="OpenCV" class="logo-opencv" />
+                        OpenCV
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com" target="_blank" class="tech-item" title="GitHub">
+                        <i class="fab fa-github icon-svg"></i> GitHub
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://groq.com" target="_blank" class="tech-item" title="Groq">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Groq_logo.svg/3840px-Groq_logo.svg.png" alt="Groq" class="logo-groq" />
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://github.com/tesseract-ocr/tesseract" target="_blank" class="tech-item" title="Tesseract OCR">
+                        <i class="fas fa-font icon-svg"></i> Tesseract OCR
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://ubuntu.com" target="_blank" class="tech-item" title="Ubuntu">
+                        <i class="fab fa-ubuntu icon-svg"></i> Ubuntu
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://linux.org" target="_blank" class="tech-item" title="Linux">
+                        <i class="fab fa-linux icon-svg"></i> Linux
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://www.microsoft.com/windows" target="_blank" class="tech-item" title="Windows">
+                        <i class="fab fa-windows icon-svg"></i> Windows
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://kivy.org" target="_blank" class="tech-item" title="Kivy">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Kivy_logo.png" alt="Kivy" />
+                        Kivy
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://buildozer.readthedocs.io" target="_blank" class="tech-item" title="Buildozer">
+                        <i class="fas fa-cube icon-svg"></i> Buildozer
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://python.org" target="_blank" class="tech-item" title="Python">
+                        <i class="fab fa-python icon-svg"></i> Python
+                    </a>
+                    <span class="sep-dot">●</span>
+                    <a href="https://isocpp.org" target="_blank" class="tech-item" title="C++">
+                        <i class="fas fa-code icon-svg"></i> C++
+                    </a>
+                    <span class="sep-dot">●</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nguyễn Vinh Cypher. Bảo vệ toàn diện cho thế giới số.</p>
+                <div class="footer-links">
+                    <a href="terms.html">Điều khoản và Điều kiện</a>
+                    <span class="sep">|</span>
+                    <a href="privacy.html">Chính sách Quyền riêng tư</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
