@@ -10,6 +10,8 @@ body {
     color: #fff;
     overflow-x: hidden;
     min-height: 100vh;
+    width: 100%;
+    position: relative;
 }
 a, button, .clickable, .btn, .tech-item, .download-btn, .news-card-4col, .feature-item, .comparison-item, .news-card-3col, .news-card, nav a, .logo, .download-btn-img, .btn-news, .download-btn-large {
     cursor: url('https://i.ibb.co/0pd6Kmgc/cursor.png') 16 16, pointer;
@@ -82,15 +84,16 @@ nav a:hover {
     padding: 8rem 2.5rem 5rem;
     position: relative;
     margin-top: 60px;
-    overflow: visible;
+    overflow: hidden;
     text-align: center;
 }
 .hero-video-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%) scale(1.1);
     object-fit: cover;
     z-index: 0;
     opacity: 0.5;
@@ -307,6 +310,7 @@ nav a:hover {
     position: relative;
     z-index: 50;
     border-radius: 999px;
+    touch-action: manipulation;
 }
 .btn-primary {
     background: transparent;
@@ -360,6 +364,7 @@ nav a:hover {
     border-bottom: 1px solid rgba(0, 212, 255, 0.12);
     backdrop-filter: blur(4px);
     z-index: 2;
+    margin: 0;
 }
 .cyber-ticker::before {
     content: "";
@@ -1574,6 +1579,7 @@ footer {
 .footer-content .footer-bottom {
     padding: 0 2.5rem;
 }
+
 @media (max-width: 1024px) {
     .hero-content {
         max-width: 100%;
@@ -1642,127 +1648,582 @@ footer {
         gap: 1.5rem;
     }
 }
+
 @media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+    nav {
+        padding: 0.6rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
     nav ul {
-        gap: 1rem;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    nav ul li a {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+    .logo-text {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+    .logo img {
+        height: 28px;
+    }
+    .hero {
+        min-height: 100vh;
+        height: auto;
+        padding: 6rem 1rem 3rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero-content {
+        padding: 0 0.5rem;
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
     }
     .hero-brand {
-        font-size: 2rem;
-        letter-spacing: 2px;
+        font-size: 1.8rem;
+        word-break: break-word;
+    }
+    .hero p {
+        font-size: 1rem;
+        padding: 0 0.5rem;
     }
     .hero-stats {
         gap: 1.5rem;
         flex-wrap: wrap;
     }
-    .features-grid {
-        grid-template-columns: 1fr;
+    .hero-stats .stat .number {
+        font-size: 1.3rem;
     }
-    .tech-grid {
-        grid-template-columns: 1fr;
+    .hero-stats .stat .label {
+        font-size: 0.6rem;
     }
-    .news-grid-4col {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        gap: 1.2rem;
-    }
-    .news-card-4col .news-image {
-        height: 180px;
-    }
-    .news-card-4col .news-body h3 {
-        min-height: auto;
-    }
-    .news-card-4col .news-body p {
-        min-height: auto;
-    }
-    .holosec-content h2 {
-        font-size: 2rem;
-    }
-    .comparison-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        padding: 0 1.5rem;
-    }
-    .comparison-header h2 {
-        font-size: 2rem;
-    }
-    .comparison-section {
-        padding: 2rem 0;
-        min-height: auto;
-    }
-    #globeCanvas {
-        width: 100%;
-        height: 300px;
-    }
-    .product-stage-wrapper {
-        height: 180px;
-        margin-top: -80px;
-    }
-    .product-shadow {
-        width: 300px;
-        height: 80px;
-    }
-    .comparison-item {
-        padding: 1.2rem;
-    }
-    .cyber-ticker {
-        height: 40px;
-    }
-    .ticker-track span {
-        font-size: 12px;
-        margin-right: 40px;
-        letter-spacing: 1px;
-    }
-    .ai-core {
-        width: 100px;
-        height: 100px;
-    }
-    .ai-core .core-content .icon {
-        font-size: 1.6rem;
-    }
-    .ai-core .core-content .label {
-        font-size: 0.55rem;
-        letter-spacing: 1px;
-    }
-    .ai-core-wrapper {
-        margin-bottom: 2rem;
-    }
-    .download-buttons-hero {
-        flex-direction: column;
-        align-items: center;
+    .cta-buttons {
+        padding: 15px 10px 20px 10px;
         gap: 0.8rem;
     }
-    .download-btn {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
-        padding: 0.6rem 1rem;
+    .btn {
+        padding: 0.6rem 1.2rem;
         font-size: 0.75rem;
+        gap: 0.4rem;
     }
-    .download-btn img {
-        height: 20px;
+    .cyber-ticker {
+        height: 34px;
+        overflow: hidden;
     }
-    .download-btn-small img {
-        height: 20px;
+    .ticker-track span {
+        font-size: 9px;
+        margin-right: 20px;
+        letter-spacing: 0.3px;
     }
-    .download-btn-img img {
-        height: 38px;
+    .holosec {
+        padding: 2rem 1rem 0;
+        overflow: hidden;
+    }
+    .holosec-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0;
+    }
+    .holosec-content {
+        width: 100%;
+        text-align: center;
+    }
+    .holosec-content h2 {
+        font-size: 1.4rem;
+    }
+    .holosec-content p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        padding: 0 0.5rem;
+    }
+    .holosec-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    .holosec-image img {
+        max-height: 250px;
+        width: 100%;
+        object-fit: contain;
+    }
+    .product-shadow {
+        width: 180px;
+        height: 40px;
+        bottom: -10px;
+    }
+    .product-stage-wrapper {
+        height: 80px;
+        margin-top: -40px;
+        overflow: hidden;
+    }
+    .product-stage {
+        height: 300px;
+        bottom: -40px;
+        background-size: 20px 20px;
     }
     .download-buttons-holosec {
         justify-content: center;
-        gap: 1rem;
+        gap: 0.8rem;
+        flex-wrap: wrap;
     }
-    .made-with-track .tech-item {
-        font-size: 0.85rem;
-        padding: 0.1rem 0.5rem;
-    }
-    .made-with-track .tech-item img {
+    .download-btn-img img {
         height: 32px;
     }
-    .made-with-track .tech-item .icon-svg {
+    .comparison-section {
+        padding: 2rem 0.5rem;
+        min-height: auto;
+        overflow: hidden;
+    }
+    .comparison-header {
+        padding: 0 0.5rem 1rem;
+    }
+    .comparison-header h2 {
+        font-size: 1.4rem;
+        word-break: break-word;
+    }
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+        gap: 0.8rem;
+    }
+    .comparison-item {
+        padding: 1rem;
+        transform: none !important;
+    }
+    .ai-core-wrapper {
+        margin-bottom: 1rem;
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+    .ai-core {
+        width: 80px;
+        height: 80px;
+    }
+    .ai-core .core-content .icon {
         font-size: 1.3rem;
     }
-    .made-with-track {
+    .ai-core .core-content .label {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+    .ai-core::before {
+        inset: -6px;
+    }
+    .ai-core::after {
+        inset: -12px;
+    }
+    .features-holosec {
+        padding: 2rem 1rem;
+        overflow: hidden;
+    }
+    .features-holosec-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0;
+    }
+    .features-holosec-content {
+        width: 100%;
+    }
+    .features-holosec-content h2 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+    .features-holosec-content .feature-item {
+        padding: 0.8rem;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    #globeCanvas {
+        height: 200px;
+        width: 100%;
+    }
+    .globe-container {
+        max-width: 100%;
+        padding: 0;
+    }
+    .features {
+        padding: 2rem 1rem;
+        overflow: hidden;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
         gap: 1rem;
+        padding: 0;
+    }
+    .feature-card {
+        padding: 1.2rem;
+    }
+    .section-title {
+        font-size: 1.3rem;
+    }
+    .section-sub {
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .tech-section {
+        padding: 2rem 1rem;
+        overflow: hidden;
+    }
+    .tech-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0;
+    }
+    .news-section {
+        padding: 2rem 1rem;
+        overflow: hidden;
+    }
+    .news-grid-4col {
+        grid-template-columns: 1fr;
+        padding: 0;
+        gap: 1rem;
+    }
+    .news-card-4col {
+        transform: none !important;
+    }
+    .news-card-4col .news-image {
+        height: 160px;
+    }
+    .news-card-4col .news-body h3 {
+        min-height: auto;
+        font-size: 0.9rem;
+    }
+    .news-card-4col .news-body p {
+        min-height: auto;
+        font-size: 0.8rem;
+    }
+    footer {
+        padding: 1rem 0;
+        overflow: hidden;
+    }
+    .footer-content {
+        padding: 0 0.5rem;
+    }
+    .footer-content .footer-bottom {
+        padding: 0 0.5rem;
+    }
+    .made-with-track {
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        animation: madeWithMove 30s linear infinite;
+    }
+    .made-with-track .tech-item {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+    .made-with-track .tech-item img {
+        height: 28px;
+    }
+    .made-with-track .tech-item .icon-svg {
+        font-size: 1.1rem;
+    }
+    .footer-links {
+        gap: 1rem;
+        font-size: 0.7rem;
+    }
+    .parallax-bg-layer {
+        display: none;
+    }
+    #termsModal > div {
+        padding: 1.5rem !important;
+        max-width: 95% !important;
+        margin: 0 auto;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    #termsModal > div > div:nth-child(2) {
+        max-height: 100px !important;
+        overflow-y: auto;
+        font-size: 0.75rem !important;
+    }
+    #termsModal > div > div:nth-child(3) {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+    }
+    #termsModal button {
+        font-size: 0.85rem !important;
+        padding: 0.7rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 0.6rem 1rem;
+    }
+    .logo img {
+        height: 28px;
+    }
+    .logo-text {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+    nav ul {
+        gap: 0.6rem;
+    }
+    nav ul li a {
+        font-size: 0.7rem;
+    }
+    .hero {
+        padding: 5rem 1rem 2rem;
+        min-height: 70vh;
+    }
+    .hero-brand {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+    .hero p {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+    .hero-stats {
+        gap: 1rem;
+    }
+    .hero-stats .stat .number {
+        font-size: 1.1rem;
+    }
+    .hero-stats .stat .label {
+        font-size: 0.55rem;
+    }
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.75rem;
+        gap: 0.4rem;
+    }
+    .cta-buttons {
+        padding: 10px 5px 15px 5px;
+        gap: 0.6rem;
+    }
+    .cyber-ticker {
+        height: 34px;
+    }
+    .ticker-track span {
+        font-size: 9px;
+        margin-right: 20px;
+        letter-spacing: 0.3px;
+    }
+    .holosec {
+        padding: 2rem 1rem 0;
+    }
+    .holosec-content h2 {
+        font-size: 1.4rem;
+    }
+    .holosec-content .subtitle {
+        font-size: 0.85rem;
+    }
+    .holosec-content p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+    .holosec-image {
+        width: 100%;
+    }
+    .holosec-image img {
+        max-height: 250px;
+    }
+    .product-shadow {
+        width: 180px;
+        height: 40px;
+        bottom: -10px;
+    }
+    .product-stage-wrapper {
+        height: 80px;
+        margin-top: -40px;
+    }
+    .product-stage {
+        height: 400px;
+        bottom: -60px;
+        background-size: 20px 20px;
+    }
+    .download-btn-img img {
+        height: 32px;
+    }
+    .download-buttons-holosec {
+        gap: 0.8rem;
+    }
+    .comparison-header h2 {
+        font-size: 1.4rem;
+    }
+    .comparison-header .subtitle {
+        font-size: 0.8rem;
+    }
+    .comparison-item {
+        padding: 1rem;
+    }
+    .comparison-item .item-header .icon {
+        font-size: 1rem;
+        width: 1.5rem;
+    }
+    .comparison-item .item-header .tag {
+        font-size: 0.45rem;
+        padding: 1px 6px;
+    }
+    .comparison-item h4 {
+        font-size: 0.8rem;
+    }
+    .comparison-item p {
+        font-size: 0.75rem;
+    }
+    .ai-core {
+        width: 80px;
+        height: 80px;
+    }
+    .ai-core .core-content .icon {
+        font-size: 1.3rem;
+    }
+    .ai-core .core-content .label {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+    .ai-core::before {
+        inset: -6px;
+    }
+    .ai-core::after {
+        inset: -12px;
+    }
+    .features-holosec {
+        padding: 2rem 1rem;
+    }
+    .features-holosec-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+    .features-holosec-content .feature-item {
+        padding: 0.8rem;
+        gap: 0.6rem;
+    }
+    .features-holosec-content .feature-item .icon {
+        font-size: 1.1rem;
+        width: 1.5rem;
+    }
+    .features-holosec-content .feature-item .text h4 {
+        font-size: 0.8rem;
+    }
+    .features-holosec-content .feature-item .text p {
+        font-size: 0.75rem;
+    }
+    #globeCanvas {
+        height: 200px;
+    }
+    .features {
+        padding: 2rem 1rem;
+    }
+    .section-title {
+        font-size: 1.3rem;
+    }
+    .section-sub {
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    .feature-card {
+        padding: 1.2rem;
+    }
+    .feature-card .icon {
+        font-size: 1.5rem;
+    }
+    .feature-card h3 {
+        font-size: 0.9rem;
+    }
+    .feature-card p {
+        font-size: 0.8rem;
+    }
+    .feature-card .tag {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.6rem;
+    }
+    .tech-section {
+        padding: 2rem 1rem;
+    }
+    .tech-card {
+        padding: 1.2rem;
+    }
+    .tech-card .icon {
+        font-size: 2rem;
+    }
+    .tech-card h4 {
+        font-size: 0.9rem;
+    }
+    .tech-card p {
+        font-size: 0.78rem;
+    }
+    .news-section {
+        padding: 2rem 1rem;
+    }
+    .news-card-4col .news-image {
+        height: 140px;
+    }
+    .news-card-4col .news-body {
+        padding: 0.8rem;
+    }
+    .news-card-4col .news-body h3 {
+        font-size: 0.85rem;
+        min-height: auto;
+    }
+    .news-card-4col .news-body p {
+        font-size: 0.75rem;
+        min-height: auto;
+        -webkit-line-clamp: 2;
+    }
+    .news-card-4col .news-body .news-meta {
+        font-size: 0.6rem;
+        gap: 0.5rem;
+    }
+    .news-card-4col .news-body .btn-news {
+        font-size: 0.6rem;
+        padding: 0.2rem 1rem;
+    }
+    footer {
+        padding: 0.8rem 0;
+    }
+    .footer-content .footer-bottom {
         padding: 0 1rem;
+    }
+    .made-with-title {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+    .made-with-track .tech-item {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+        gap: 0.3rem;
+    }
+    .made-with-track .tech-item img {
+        height: 22px;
+    }
+    .made-with-track .tech-item .icon-svg {
+        font-size: 0.9rem;
+    }
+    .made-with-track {
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        animation: madeWithMove 30s linear infinite;
+    }
+    .made-with-track .sep-dot {
+        font-size: 0.4rem;
+    }
+    .footer-links {
+        gap: 0.6rem;
+        font-size: 0.6rem;
+    }
+    .footer-links .sep {
+        display: none;
+    }
+    .footer-links a {
+        display: block;
+        padding: 0.2rem 0;
     }
 }

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Video: force loop & play
     const video = document.getElementById('bgVideo');
     if (video) {
         video.muted = true;
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         video.play().catch(() => {});
     }
 
-    // Reveal on scroll
     const revealItems = document.querySelectorAll('.reveal-on-scroll');
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.15 });
     revealItems.forEach(item => scrollObserver.observe(item));
 
-    // Holosec image
     const holosecImage = document.getElementById('holosecImage');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -29,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.2 });
     observer.observe(holosecImage);
 
-    // Parallax
     const parallaxBg = document.getElementById('parallaxBg');
     const wrapper = document.getElementById('universeWrapper');
 
@@ -44,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.addEventListener('scroll', updateParallax);
 
-    // ===== THREE.JS GLOBE =====
     const container = document.getElementById('globeContainer');
     const canvas = document.getElementById('globeCanvas');
 
@@ -270,4 +265,27 @@ document.addEventListener('DOMContentLoaded', function() {
             ro.observe(container);
         }
     }
+
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.addEventListener('touchstart', function(e) {
+            const target = e.target;
+            if (target.closest('.btn') || target.closest('a')) {
+                e.stopPropagation();
+            }
+        }, { passive: true });
+    }
+
+    document.querySelectorAll('.btn, .download-btn, .btn-news, .download-btn-img, .tech-item').forEach(function(btn) {
+        btn.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        }, { passive: true });
+    });
+
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(function(link) {
+        link.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        }, { passive: true });
+    });
 });

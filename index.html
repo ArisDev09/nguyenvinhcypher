@@ -2,7 +2,9 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="https://d2eioyamun8mp1.cloudfront.net/images/1778429322279_xe9Oxxk0FV.png" />
+    <link rel="apple-touch-icon" href="https://d2eioyamun8mp1.cloudfront.net/images/1778429322279_xe9Oxxk0FV.png" />
     <title>Nguyễn Vinh Cypher - Bảo mật toàn diện</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -290,6 +292,81 @@
             border-color: rgba(0, 212, 255, 0.15);
             background: rgba(0, 212, 255, 0.03);
         }
+        .zalo-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .zalo-bubble {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            background: transparent;
+            animation: zaloPulse 2s ease-in-out infinite;
+        }
+        .zalo-bubble img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            border-radius: 50%;
+            display: block;
+            background: transparent;
+        }
+        .zalo-bubble:hover {
+            transform: scale(1.1);
+        }
+        .zalo-tooltip {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.8rem;
+            color: #e0e0f0;
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .zalo-tooltip.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .zalo-tooltip::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            right: 20px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(0, 0, 0, 0.85);
+        }
+        .zalo-tooltip i {
+            color: #0068ff;
+            margin-right: 6px;
+        }
+        .zalo-tooltip .zalo-text {
+            color: #0068ff;
+            font-weight: 600;
+        }
+        @keyframes zaloPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
         @media (max-width: 1024px) {
             .news-grid-4col {
                 grid-template-columns: repeat(2, 1fr);
@@ -311,6 +388,22 @@
             .news-card-4col .news-body p {
                 min-height: auto;
             }
+            .zalo-wrapper {
+                bottom: 20px;
+                right: 20px;
+            }
+            .zalo-bubble {
+                width: 50px;
+                height: 50px;
+            }
+            .zalo-bubble img {
+                width: 45px;
+                height: 45px;
+            }
+            .zalo-tooltip {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -326,22 +419,6 @@
             <li><a href="#news">Tin tức công nghệ</a></li>
         </ul>
     </nav>
-    <div class="cyber-ticker">
-        <div class="ticker-track">
-            <span>
-                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
-                <span class="icon-symbol">◆</span>
-            </span>
-            <span>
-                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
-                <span class="icon-symbol">◆</span>
-            </span>
-            <span>
-                <span class="icon-symbol">◆</span> PHÒNG TRÁNH TỘI PHẠM SỬ DỤNG CÔNG NGHỆ CAO CÙNG GENZ!!!
-                <span class="icon-symbol">◆</span>
-            </span>
-        </div>
-    </div>
     <section class="hero">
         <video class="hero-video-bg" autoplay muted loop playsinline preload="auto" id="bgVideo">
             <source src="https://res.cloudinary.com/dibalsqpg/video/upload/v1782031685/Comp_1_1_lvj6ma.mp4" type="video/mp4" id="videoSource" />
@@ -842,12 +919,21 @@
                 </a>
             </div>
             <button id="acceptTermsBtn" style="width:100%;padding:0.9rem;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(127,57,251,0.15));border:1px solid rgba(0,212,255,0.2);border-radius:999px;color:#666688;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:0.3s;opacity:0.5;pointer-events:none;">
-                <i class="fas fa-check"></i> Đồng ý và tiếp tục
-            </button>
-            <p style="text-align:center;font-family:'Exo 2',sans-serif;font-size:0.7rem;color:#666688;margin-top:1rem;">
-                Bạn phải đồng ý với điều khoản để sử dụng Holosec.
-            </p>
+                    <i class="fas fa-check"></i> Đồng ý và tiếp tục
+                </button>
+                <p style="text-align:center;font-family:'Exo 2',sans-serif;font-size:0.7rem;color:#666688;margin-top:1rem;">
+                    Bạn phải đồng ý với điều khoản để sử dụng Holosec.
+                </p>
+            </div>
         </div>
+    </div>
+    <div class="zalo-wrapper">
+        <div class="zalo-tooltip" id="zaloTooltip">
+            <i class="fas fa-comment-dots"></i> Chat với tôi trên <span class="zalo-text">Zalo</span>
+        </div>
+        <a href="https://zalo.me/0986947309" target="_blank" class="zalo-bubble" id="zaloBubble" aria-label="Chat với tôi trên Zalo">
+            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Zalo-Arc.png" alt="Zalo">
+        </a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -896,6 +982,31 @@
             if (e.target === modal && !checkbox.checked) {
             }
         });
+
+        var zaloBubble = document.getElementById('zaloBubble');
+        var zaloTooltip = document.getElementById('zaloTooltip');
+        
+        if (zaloBubble && zaloTooltip) {
+            setTimeout(function() {
+                zaloTooltip.classList.add('show');
+            }, 1500);
+            setTimeout(function() {
+                zaloTooltip.classList.remove('show');
+            }, 6000);
+            zaloBubble.addEventListener('mouseenter', function() {
+                zaloTooltip.classList.add('show');
+            });
+            zaloBubble.addEventListener('mouseleave', function() {
+                zaloTooltip.classList.remove('show');
+            });
+            zaloBubble.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                zaloTooltip.classList.toggle('show');
+                setTimeout(function() {
+                    zaloTooltip.classList.remove('show');
+                }, 3000);
+            });
+        }
     });
     </script>
 </body>
