@@ -1,11 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
     const downloadWindows = document.getElementById('downloadWindows');
     const downloadAndroid = document.getElementById('downloadAndroid');
+    const comingSoonOverlay = document.getElementById('comingSoonOverlay');
+    const closeComingSoon = document.getElementById('closeComingSoon');
+
+    function showComingSoon() {
+        comingSoonOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideComingSoon() {
+        comingSoonOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 
     if (downloadWindows) {
         downloadWindows.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'https://archive.org/download/holosec-setup/Holosec_Setup.exe';
+            showComingSoon();
         });
         downloadWindows.addEventListener('touchstart', function(e) {
             e.stopPropagation();
@@ -15,10 +27,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (downloadAndroid) {
         downloadAndroid.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'https://archive.org/download/holosec-1.0.0-arm64-v8a_armeabi-v7a-debug_202607/holosec-1.0.0-arm64-v8a_armeabi-v7a-debug.apk';
+            showComingSoon();
         });
         downloadAndroid.addEventListener('touchstart', function(e) {
             e.stopPropagation();
         }, { passive: true });
     }
+
+    if (closeComingSoon) {
+        closeComingSoon.addEventListener('click', function() {
+            hideComingSoon();
+        });
+    }
+
+    comingSoonOverlay.addEventListener('click', function(e) {
+        if (e.target === comingSoonOverlay) {
+            hideComingSoon();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && comingSoonOverlay.classList.contains('active')) {
+            hideComingSoon();
+        }
+    });
 });
